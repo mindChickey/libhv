@@ -53,6 +53,12 @@ if(IOS)
     set(BUILD_EXAMPLES OFF)
 endif()
 
+set(CMAKE_C_COMPILER clang)
+set(CMAKE_CXX_COMPILER clang++)
+add_compile_options(-fPIC -flto=thin ${EXTRA_OPTION})
+add_link_options(-fuse-ld=/usr/local/bin/ld.lld)
+link_directories(/usr/local/lib)
+
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 include(utils)
 include(vars)
@@ -311,7 +317,7 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 
 # Specify the package generators
-set(CPACK_GENERATOR "TGZ;DEB;RPM")
+set(CPACK_GENERATOR "TGZ;DEB")
 
 # Enable CPack debug output
 set(CPACK_PACKAGE_DEBUG True)
